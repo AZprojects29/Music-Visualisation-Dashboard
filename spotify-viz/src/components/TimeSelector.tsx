@@ -63,7 +63,6 @@ export function TimeSelector() {
             )}
           </div>
         </div>
-        <div className="time-fade-left"></div>
         <div className="time-fade-right"></div>
       </div>
 
