@@ -1,5 +1,6 @@
 import { AnimatedCounter } from './AnimatedCounter';
 import type { StreakInfo } from '../data/aggregations';
+import { Flame } from 'lucide-react';
 
 interface StreakTrackerProps {
   streakInfo: StreakInfo;
@@ -23,8 +24,11 @@ export function StreakTracker({ streakInfo }: StreakTrackerProps) {
 
   return (
     <div className="bg-spotify-gray rounded-xl p-6">
-      <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-        <span className="text-2xl">🔥</span> Listening Streaks
+      <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+        <div className="w-10 h-10 rounded-xl bg-orange-500/20 flex items-center justify-center">
+          <Flame size={22} className="text-orange-400" />
+        </div>
+        Listening Streaks
       </h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

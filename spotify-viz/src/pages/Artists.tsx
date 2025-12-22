@@ -74,6 +74,8 @@ export function Artists() {
             </button>
           </div>
 
+          <div className="w-px h-8 bg-zinc-600" />
+
           <div className="flex gap-2">
             <button
               onClick={() => setLimit(10)}

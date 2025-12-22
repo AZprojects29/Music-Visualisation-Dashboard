@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useApp } from '../context/AppContext';
+import { Search, X } from 'lucide-react';
 
 export function SearchFilter() {
   const { searchQuery, setSearchQuery, filteredEvents } = useApp();
@@ -41,7 +42,7 @@ export function SearchFilter() {
     <div className="relative">
       <div
         className={`flex items-center gap-2 transition-all duration-300 ${
-          isExpanded ? 'w-80' : 'w-auto'
+          isExpanded ? 'w-96' : 'w-auto'
         }`}
       >
         {isExpanded ? (
@@ -52,50 +53,27 @@ export function SearchFilter() {
               value={localQuery}
               onChange={(e) => setLocalQuery(e.target.value)}
               placeholder="Search artists, tracks, albums..."
-              className="w-full bg-spotify-gray text-white px-4 py-2 pl-10 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-spotify-green"
+              className="w-full bg-zinc-900 text-white px-4 py-2 pl-10 rounded-lg text-sm border border-zinc-600 focus:outline-none focus:border-spotify-green transition-colors"
             />
-            <svg
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-spotify-light-gray"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400"
+            />
             {localQuery && (
               <button
                 onClick={handleClear}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-spotify-light-gray hover:text-white"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                <X size={16} />
               </button>
             )}
           </div>
         ) : (
           <button
             onClick={() => setIsExpanded(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-spotify-gray text-white rounded-full text-sm hover:bg-zinc-700 transition-colors"
+            className="flex items-center justify-start gap-3 w-40 px-4 py-2 bg-transparent text-zinc-400 rounded-lg text-sm border border-zinc-600 hover:border-zinc-400 hover:text-white transition-colors"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            <Search size={16} />
             Search
           </button>
         )}

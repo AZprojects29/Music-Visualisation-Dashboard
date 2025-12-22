@@ -15,6 +15,7 @@ import {
 } from 'recharts';
 import { formatDuration } from '../../data/aggregations';
 import type { TimeOfDayData, HourlyData } from '../../data/aggregations';
+import { Sunrise, Sun, Sunset, Moon } from 'lucide-react';
 
 interface TimeOfDayFlowProps {
   timeOfDayData: TimeOfDayData[];
@@ -28,11 +29,20 @@ const PERIOD_COLORS: Record<string, string> = {
   'Night (12AM-6AM)': '#3b82f6',
 };
 
-const PERIOD_ICONS: Record<string, string> = {
-  'Morning (6AM-12PM)': '🌅',
-  'Afternoon (12PM-6PM)': '☀️',
-  'Evening (6PM-12AM)': '🌆',
-  'Night (12AM-6AM)': '🌙',
+const getPeriodIcon = (period: string, size: number = 20) => {
+  const color = PERIOD_COLORS[period];
+  switch (period) {
+    case 'Morning (6AM-12PM)':
+      return <Sunrise size={size} style={{ color }} />;
+    case 'Afternoon (12PM-6PM)':
+      return <Sun size={size} style={{ color }} />;
+    case 'Evening (6PM-12AM)':
+      return <Sunset size={size} style={{ color }} />;
+    case 'Night (12AM-6AM)':
+      return <Moon size={size} style={{ color }} />;
+    default:
+      return null;
+  }
 };
 
 export function TimeOfDayFlow({ timeOfDayData, hourlyData }: TimeOfDayFlowProps) {
@@ -80,7 +90,7 @@ export function TimeOfDayFlow({ timeOfDayData, hourlyData }: TimeOfDayFlowProps)
               }`}
             >
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-2xl">{PERIOD_ICONS[period.period]}</span>
+                {getPeriodIcon(period.period, 22)}
                 <p className="text-white font-medium text-sm">
                   {period.period.split(' ')[0]}
                 </p>
@@ -116,10 +126,10 @@ export function TimeOfDayFlow({ timeOfDayData, hourlyData }: TimeOfDayFlowProps)
           {timeOfDayData.map((period, index) => (
             <div key={period.period} className="flex items-center">
               <div
-                className="rounded-lg px-4 py-3 text-center min-w-[100px]"
+                className="rounded-lg px-4 py-3 text-center min-w-[100px] flex flex-col items-center"
                 style={{ backgroundColor: `${PERIOD_COLORS[period.period]}20` }}
               >
-                <span className="text-xl">{PERIOD_ICONS[period.period]}</span>
+                {getPeriodIcon(period.period, 24)}
                 <p
                   className="text-lg font-bold mt-1"
                   style={{ color: PERIOD_COLORS[period.period] }}

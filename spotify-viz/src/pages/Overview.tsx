@@ -11,6 +11,16 @@ import {
   formatDate,
   formatDuration,
 } from '../data/aggregations';
+import {
+  Sunrise,
+  Sun,
+  Sunset,
+  Moon,
+  Film,
+  Plane,
+  BedDouble,
+  Timer,
+} from 'lucide-react';
 
 export function Overview() {
   const { filteredEvents } = useApp();
@@ -197,11 +207,15 @@ export function Overview() {
           <div className="grid grid-cols-2 gap-4">
             {timeOfDay.map((time) => {
               const isMax = favoriteTime?.period === time.period;
-              const icons: Record<string, string> = {
-                'Morning (6AM-12PM)': '🌅',
-                'Afternoon (12PM-6PM)': '☀️',
-                'Evening (6PM-12AM)': '🌆',
-                'Night (12AM-6AM)': '🌙',
+              const iconProps = {
+                size: 24,
+                className: isMax ? 'text-spotify-green' : 'text-zinc-400',
+              };
+              const icons: Record<string, React.ReactNode> = {
+                'Morning (6AM-12PM)': <Sunrise {...iconProps} />,
+                'Afternoon (12PM-6PM)': <Sun {...iconProps} />,
+                'Evening (6PM-12AM)': <Sunset {...iconProps} />,
+                'Night (12AM-6AM)': <Moon {...iconProps} />,
               };
 
               return (
@@ -214,7 +228,7 @@ export function Overview() {
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-2xl">{icons[time.period]}</span>
+                    {icons[time.period]}
                     <span className={`text-sm font-medium ${isMax ? 'text-spotify-green' : 'text-spotify-light-gray'}`}>
                       {time.period.split(' ')[0]}
                     </span>
@@ -265,32 +279,40 @@ export function Overview() {
       <div className="bg-gradient-to-r from-zinc-800 to-zinc-900 rounded-xl p-6 border border-zinc-700">
         <h3 className="text-lg font-bold text-white mb-4">Put Your Listening Into Perspective</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">🎬</span>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
+              <Film size={24} className="text-purple-400" />
+            </div>
             <div>
               <p className="text-xl font-bold text-white">{funFacts.movies}</p>
-              <p className="text-zinc-400 text-sm">Movies you could watch</p>
+              <p className="text-zinc-400 text-sm">Movies worth</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">✈️</span>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
+              <Plane size={24} className="text-blue-400" />
+            </div>
             <div>
               <p className="text-xl font-bold text-white">{funFacts.flights}</p>
               <p className="text-zinc-400 text-sm">Long-haul flights</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">😴</span>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+              <BedDouble size={24} className="text-indigo-400" />
+            </div>
             <div>
               <p className="text-xl font-bold text-white">{funFacts.sleepNights}</p>
-              <p className="text-zinc-400 text-sm">Full nights of sleep</p>
+              <p className="text-zinc-400 text-sm">Nights of sleep</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">🏃</span>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center">
+              <Timer size={24} className="text-orange-400" />
+            </div>
             <div>
               <p className="text-xl font-bold text-white">{funFacts.marathons}</p>
-              <p className="text-zinc-400 text-sm">Marathon run times</p>
+              <p className="text-zinc-400 text-sm">Marathon durations</p>
             </div>
           </div>
         </div>

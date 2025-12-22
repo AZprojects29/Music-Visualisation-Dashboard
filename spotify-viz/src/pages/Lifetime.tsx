@@ -4,19 +4,16 @@ import {
   getLifetimeStats,
   formatDuration,
   formatNumber,
-  getStreakInfo,
   getTimeOfDayBreakdown,
   getHourlyBreakdown,
 } from '../data/aggregations';
 import { StatCard } from '../components/StatCard';
-import { StreakTracker } from '../components/StreakTracker';
 import { TimeOfDayFlow } from '../components/charts/TimeOfDayFlow';
 
 export function Lifetime() {
   const { allEvents } = useApp();
 
   const stats = useMemo(() => getLifetimeStats(allEvents), [allEvents]);
-  const streakInfo = useMemo(() => getStreakInfo(allEvents), [allEvents]);
   const timeOfDayData = useMemo(() => getTimeOfDayBreakdown(allEvents), [allEvents]);
   const hourlyData = useMemo(() => getHourlyBreakdown(allEvents), [allEvents]);
 
@@ -48,11 +45,6 @@ export function Lifetime() {
           title="Unique Artists"
           value={stats.totalArtists}
         />
-      </div>
-
-      {/* Streak Tracker */}
-      <div className="mb-8">
-        <StreakTracker streakInfo={streakInfo} />
       </div>
 
       {/* Time of Day Analysis */}
