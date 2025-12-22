@@ -22,42 +22,80 @@ export function TimeSelector() {
     return timeRange.type === type;
   };
 
-  return (
-    <div className="flex flex-wrap gap-2">
-      {baseRanges.map((range) => (
-        <button
-          key={range.type}
-          onClick={() => handleRangeClick({ type: range.type, label: range.label })}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            isActive(range.type)
-              ? 'bg-spotify-green text-black'
-              : 'bg-spotify-gray text-white hover:bg-zinc-700'
-          }`}
-        >
-          {range.label}
-        </button>
-      ))}
+  const buttonClass = (active: boolean) =>
+    `px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
+      active
+        ? 'bg-spotify-green text-black'
+        : 'bg-spotify-gray text-white hover:bg-zinc-700'
+    }`;
 
-      {availableYears.length > 0 && (
-        <div className="flex items-center gap-2 ml-2">
-          <span className="text-spotify-light-gray text-sm">|</span>
-          {availableYears.map((year) => (
-            <button
-              key={year}
-              onClick={() =>
-                handleRangeClick({ type: 'year', year, label: year.toString() })
-              }
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                isActive('year', year)
-                  ? 'bg-spotify-green text-black'
-                  : 'bg-spotify-gray text-white hover:bg-zinc-700'
-              }`}
-            >
-              {year}
-            </button>
-          ))}
+  return (
+    <div className="w-full">
+      {/* Mobile: horizontal scroll with fade edges */}
+      <div className="relative md:hidden overflow-hidden">
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex items-center gap-2 px-1">
+            {baseRanges.map((range) => (
+              <button
+                key={range.type}
+                onClick={() => handleRangeClick({ type: range.type, label: range.label })}
+                className={buttonClass(isActive(range.type))}
+              >
+                {range.label}
+              </button>
+            ))}
+
+            {availableYears.length > 0 && (
+              <>
+                <span className="text-spotify-light-gray text-sm">|</span>
+                {availableYears.map((year) => (
+                  <button
+                    key={year}
+                    onClick={() =>
+                      handleRangeClick({ type: 'year', year, label: year.toString() })
+                    }
+                    className={buttonClass(isActive('year', year))}
+                  >
+                    {year}
+                  </button>
+                ))}
+              </>
+            )}
+          </div>
         </div>
-      )}
+        <div className="time-fade-left"></div>
+        <div className="time-fade-right"></div>
+      </div>
+
+      {/* Desktop: regular flex-wrap layout */}
+      <div className="hidden md:flex flex-wrap gap-2">
+        {baseRanges.map((range) => (
+          <button
+            key={range.type}
+            onClick={() => handleRangeClick({ type: range.type, label: range.label })}
+            className={buttonClass(isActive(range.type))}
+          >
+            {range.label}
+          </button>
+        ))}
+
+        {availableYears.length > 0 && (
+          <div className="flex items-center gap-2 ml-2">
+            <span className="text-spotify-light-gray text-sm">|</span>
+            {availableYears.map((year) => (
+              <button
+                key={year}
+                onClick={() =>
+                  handleRangeClick({ type: 'year', year, label: year.toString() })
+                }
+                className={buttonClass(isActive('year', year))}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

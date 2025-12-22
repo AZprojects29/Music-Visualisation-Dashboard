@@ -34,10 +34,11 @@ export function Layout() {
   return (
     <div className="min-h-screen bg-spotify-dark">
       <Navigation />
-      <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="mb-8">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div>
+      <main className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+        <div className="mb-6 md:mb-8">
+          {/* Mobile: stack vertically, TimeSelector takes full width */}
+          <div className="flex flex-col gap-4 md:flex-row md:flex-wrap md:items-start md:justify-between">
+            <div className="min-w-0 w-full md:w-auto">
               <TimeSelector />
               <p className="text-spotify-light-gray text-sm mt-3">
                 Viewing: {timeRange.label}

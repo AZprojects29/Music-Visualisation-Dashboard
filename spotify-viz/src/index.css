@@ -55,3 +55,47 @@ body {
 .recharts-tooltip-wrapper {
   outline: none !important;
 }
+
+/* Hide scrollbar for mobile scroll containers */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Navigation fade edges (mobile only) */
+.nav-fade-left,
+.nav-fade-right,
+.time-fade-left,
+.time-fade-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.nav-fade-left,
+.time-fade-left {
+  left: 0;
+  background: linear-gradient(to right, #191414, transparent);
+}
+
+.nav-fade-right,
+.time-fade-right {
+  right: 0;
+  background: linear-gradient(to left, #191414, transparent);
+}
+
+/* TimeSelector uses darker background */
+.time-fade-left {
+  background: linear-gradient(to right, #121212, transparent);
+}
+
+.time-fade-right {
+  background: linear-gradient(to left, #121212, transparent);
+}
