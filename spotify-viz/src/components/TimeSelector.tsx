@@ -34,7 +34,7 @@ export function TimeSelector() {
       {/* Mobile: horizontal scroll with fade edges */}
       <div className="relative md:hidden overflow-hidden">
         <div className="overflow-x-auto scrollbar-hide">
-          <div className="flex items-center gap-2 px-1">
+          <div className="flex items-center gap-2">
             {baseRanges.map((range) => (
               <button
                 key={range.type}

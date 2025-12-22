@@ -40,7 +40,7 @@ export function Navigation() {
           {/* Mobile: horizontal scroll with fade edges */}
           <div className="relative md:hidden pb-3">
             <div className="nav-scroll-container overflow-x-auto scrollbar-hide">
-              <div className="flex items-center gap-1 px-1">
+              <div className="flex items-center gap-1">
                 {navItems.map((item) => (
                   <NavLink
                     key={item.path}
