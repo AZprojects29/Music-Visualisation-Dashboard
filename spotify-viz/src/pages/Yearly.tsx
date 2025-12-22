@@ -55,9 +55,9 @@ export function Yearly() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
               {recap.topTrack && (
-                <div className="bg-zinc-800 rounded-lg p-4">
+                <div className="bg-zinc-700 rounded-lg p-4 lg:col-span-2">
                   <p className="text-spotify-green text-sm font-medium mb-2">
                     Top Track
                   </p>
@@ -75,7 +75,7 @@ export function Yearly() {
               )}
 
               {recap.topArtist && (
-                <div className="bg-zinc-800 rounded-lg p-4">
+                <div className="bg-zinc-700 rounded-lg p-4 lg:col-span-2">
                   <p className="text-spotify-green text-sm font-medium mb-2">
                     Top Artist
                   </p>
