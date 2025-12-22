@@ -40,7 +40,16 @@ export function BubbleChart({ data, maxBubbles = 15 }: BubbleChartProps) {
   const [hoveredBubble, setHoveredBubble] = useState<string | null>(null);
   const [animationKey, setAnimationKey] = useState(0);
   const [bubbleScales, setBubbleScales] = useState<number[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
   const animationRef = useRef<number | null>(null);
+
+  // Detect mobile screen
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Typewriter animation: single animation loop for all bubbles
   useEffect(() => {
@@ -95,8 +104,9 @@ export function BubbleChart({ data, maxBubbles = 15 }: BubbleChartProps) {
   const bubbles = useMemo(() => {
     const limited = data.slice(0, maxBubbles);
     const maxValue = Math.max(...limited.map((d) => d.value));
-    const minSize = 60;
-    const maxSize = 180;
+    // Larger bubbles on mobile for better visibility
+    const minSize = isMobile ? 90 : 60;
+    const maxSize = isMobile ? 240 : 180;
 
     return limited.map((item, index) => {
       const normalizedSize = Math.sqrt(item.value / maxValue);
@@ -108,7 +118,7 @@ export function BubbleChart({ data, maxBubbles = 15 }: BubbleChartProps) {
         color: COLORS[index % COLORS.length],
       };
     });
-  }, [data, maxBubbles]);
+  }, [data, maxBubbles, isMobile]);
 
   // Pack bubbles in a simple grid-like layout
   const positions = useMemo(() => {

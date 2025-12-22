@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   BarChart,
   Bar,
@@ -29,6 +30,14 @@ export function BarChartHorizontal({
   formatValue = (v) => formatDuration(v),
   height = 400,
 }: BarChartHorizontalProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const item = payload[0].payload;
@@ -48,12 +57,13 @@ export function BarChartHorizontal({
   };
 
   return (
-    <ResponsiveContainer width="100%" height={height}>
-      <BarChart
-        data={data}
-        layout="vertical"
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
+    <div className="w-full">
+      <ResponsiveContainer width="100%" height={height}>
+        <BarChart
+          data={data}
+          layout="vertical"
+          margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
+        >
         <XAxis
           type="number"
           tickFormatter={(v) => formatValue(v)}
@@ -64,11 +74,14 @@ export function BarChartHorizontal({
         <YAxis
           dataKey="name"
           type="category"
-          width={180}
-          tick={{ fill: '#fff', fontSize: 12 }}
+          width={isMobile ? 70 : 180}
+          tick={{ fill: '#fff', fontSize: isMobile ? 10 : 12 }}
           axisLine={{ stroke: '#535353' }}
           tickLine={false}
-          tickFormatter={(v) => (v.length > 25 ? v.slice(0, 22) + '...' : v)}
+          tickFormatter={(v) => {
+            const maxLen = isMobile ? 12 : 25;
+            return v.length > maxLen ? v.slice(0, maxLen - 3) + '...' : v;
+          }}
         />
         <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
         <Bar dataKey="value" radius={[0, 4, 4, 0]}>
@@ -80,6 +93,7 @@ export function BarChartHorizontal({
           ))}
         </Bar>
       </BarChart>
-    </ResponsiveContainer>
+      </ResponsiveContainer>
+    </div>
   );
 }
