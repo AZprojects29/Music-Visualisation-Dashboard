@@ -8,12 +8,12 @@ type ViewMode = 'bar' | 'bubble';
 
 export function Artists() {
   const { filteredEvents } = useApp();
-  const [limit, setLimit] = useState<10 | 25>(10);
   const [viewMode, setViewMode] = useState<ViewMode>('bubble');
+  const limit = 10;
 
   const topArtists = useMemo(
     () => getTopArtists(filteredEvents, limit),
-    [filteredEvents, limit]
+    [filteredEvents]
   );
 
   const chartData = useMemo(
@@ -73,31 +73,6 @@ export function Artists() {
               Bar Chart
             </button>
           </div>
-
-          <div className="w-px h-8 bg-zinc-600" />
-
-          <div className="flex gap-2">
-            <button
-              onClick={() => setLimit(10)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                limit === 10
-                  ? 'bg-spotify-green text-black'
-                  : 'bg-spotify-gray text-white hover:bg-zinc-700'
-              }`}
-            >
-              Top 10
-            </button>
-            <button
-              onClick={() => setLimit(25)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                limit === 25
-                  ? 'bg-spotify-green text-black'
-                  : 'bg-spotify-gray text-white hover:bg-zinc-700'
-              }`}
-            >
-              Top 25
-            </button>
-          </div>
         </div>
       </div>
 
@@ -109,7 +84,7 @@ export function Artists() {
             data={chartData}
             valueLabel="Time Played"
             formatValue={(v) => formatDuration(v)}
-            height={limit === 10 ? 450 : 900}
+            height={450}
           />
         )}
       </div>
