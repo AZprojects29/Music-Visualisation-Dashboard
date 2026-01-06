@@ -5,8 +5,8 @@ Visualize your Spotify listening history with beautiful charts and statistics.
 ## Quick Start
 
 ```bash
-git clone <repo-url>
-cd <repo-name>
+git clone https://github.com/AZprojects29/Music-Visualisation-Dashboard.git
+cd Music-Visualisation-Dashboard
 npm install
 # Add your Spotify data (see below)
 npm run generate-config
@@ -124,7 +124,3 @@ Example entry:
 - Ensure filenames end with `.json`
 - Run `npm run generate-config` after adding new files
 - Or manually add them to `data-config.json`
-
-## Privacy
-
-All data processing happens locally in your browser. Your listening history is never sent to any server.
