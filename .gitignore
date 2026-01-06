@@ -1,23 +1,20 @@
 # Dependencies
 node_modules/
-spotify-viz/node_modules/
 
 # Build output
 dist/
-spotify-viz/dist/
 
-# Personal Spotify data - DO NOT COMMIT
-*.json
-!spotify-viz/package.json
-!spotify-viz/package-lock.json
-!spotify-viz/tsconfig.json
-!spotify-viz/tsconfig.app.json
-!spotify-viz/tsconfig.node.json
-!spotify-viz/public/data/data-config.example.json
-
-# Spotify export files
+# User's Spotify data - DO NOT COMMIT
+public/data/*.json
+!public/data/data-config.example.json
 Streaming_History_*.json
 ReadMeFirst*.pdf
+
+# Lock file (users generate their own)
+package-lock.json
+
+# Old spotify-viz folder remnants
+spotify-viz/
 
 # Environment files
 .env
@@ -40,6 +37,3 @@ Thumbs.db
 # Logs
 *.log
 npm-debug.log*
-
-# Root level package files (not needed)
-/package-lock.json
