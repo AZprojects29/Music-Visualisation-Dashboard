@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+spotify-viz/node_modules/
+
+# Build output
+dist/
+spotify-viz/dist/
+
+# Personal Spotify data - DO NOT COMMIT
+*.json
+!spotify-viz/package.json
+!spotify-viz/package-lock.json
+!spotify-viz/tsconfig.json
+!spotify-viz/tsconfig.app.json
+!spotify-viz/tsconfig.node.json
+!spotify-viz/public/data/data-config.example.json
+
+# Spotify export files
+Streaming_History_*.json
+ReadMeFirst*.pdf
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings
+.claude/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Root level package files (not needed)
+/package-lock.json

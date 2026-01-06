@@ -1,16 +1,51 @@
 import type { RawStreamingEvent } from './types';
 
-const DATA_FILES = [
-  '/data/Streaming_History_Audio_2019-2021_0.json',
-  '/data/Streaming_History_Audio_2021-2024_1.json',
-  '/data/Streaming_History_Audio_2024-2025_2.json',
-];
+interface DataFileConfig {
+  path: string;
+  label?: string; // Optional label for display (e.g., "2020-2022")
+}
+
+interface DataConfig {
+  autoDetect: {
+    enabled: boolean;
+    pattern: string;
+  };
+  files: DataFileConfig[];
+}
+
+const DEFAULT_CONFIG: DataConfig = {
+  autoDetect: { enabled: true, pattern: 'Streaming_History_Audio_' },
+  files: [],
+};
+
+async function loadConfig(): Promise<DataConfig> {
+  try {
+    const response = await fetch('/data/data-config.json');
+    if (!response.ok) {
+      console.warn('No data-config.json found, using default config');
+      return DEFAULT_CONFIG;
+    }
+    const config: DataConfig = await response.json();
+    return config;
+  } catch (error) {
+    console.warn('Error loading data-config.json:', error);
+    return DEFAULT_CONFIG;
+  }
+}
 
 export async function loadAllStreamingData(): Promise<RawStreamingEvent[]> {
+  const config = await loadConfig();
   const allEvents: RawStreamingEvent[] = [];
 
+  if (config.files.length === 0) {
+    console.warn('No data files configured in data-config.json');
+    return allEvents;
+  }
+
+  const filePaths = config.files.map((f) => `/data/${f.path}`);
+
   const results = await Promise.all(
-    DATA_FILES.map(async (file) => {
+    filePaths.map(async (file) => {
       try {
         const response = await fetch(file);
         if (!response.ok) {
@@ -35,3 +70,7 @@ export async function loadAllStreamingData(): Promise<RawStreamingEvent[]> {
 
   return allEvents;
 }
+
+// Export config loader for potential use in UI
+export { loadConfig };
+export type { DataConfig, DataFileConfig };

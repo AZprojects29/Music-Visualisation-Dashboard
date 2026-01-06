@@ -1,0 +1,14 @@
+{
+  "autoDetect": {
+    "enabled": true,
+    "pattern": "Streaming_History_Audio_"
+  },
+  "files": [
+    {
+      "path": "Streaming_History_Audio_2020-2022_0.json"
+    },
+    {
+      "path": "Streaming_History_Audio_2022-2024_1.json"
+    }
+  ]
+}
